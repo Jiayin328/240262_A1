@@ -18,7 +18,6 @@ public class Asg1 {
     static int countJava = 0;
     static int countIssues = 0;
     static LinkedList list = new LinkedList();
-    static int x = 0;
     
     public static void listFiles(String path) {
         File folder = new File(path);
@@ -27,7 +26,7 @@ public class Asg1 {
         for (File file : files) {
             if (file.isFile() && (file.getName().endsWith(".java"))) { 
                 countJava++;
-                list.add(x, file.getAbsolutePath());
+                list.add(file.getAbsolutePath());
                 //System.out.println(list);
             } else if (file.isDirectory()) {
                 listFiles(file.getAbsolutePath());
@@ -35,14 +34,15 @@ public class Asg1 {
         }
     }
     
-    public static void listIssues(String path) throws FileNotFoundException, IOException {
+    public static void listIssues() throws FileNotFoundException, IOException {
         for (int i=0; i<list.size(); i++){
             String dir = list.get(i).toString();
             //System.out.println(dir);
             BufferedReader br = new BufferedReader(new FileReader(dir));
             String line;
             while ((line = br.readLine()) != null){
-                if (line.contains("public static void main")){
+                if (line.contains("public static void main")){ //deduct this line from becoming one issue
+                    //System.out.println(dir);
                     countIssues++;
                 }
             }
@@ -50,10 +50,10 @@ public class Asg1 {
     }
     
     public static void main(String[] args) throws IOException {
-        String dir = "E:\\Online Learning\\Sem 5\\STIW3054 Real-Time Programming"; // put your directory here
+        String dir = System.getProperty("user.dir"); 
         listFiles(dir);
-        String path = dir + "\\";
-        listIssues(path);
+        listIssues();
+        countIssues = countIssues - 1; //deduct one from the method listIssues
         System.out.println("Number of Java Files = " + countJava + "\nNumber of Issues = " + countIssues);
     }
 }

@@ -43,21 +43,18 @@ public class Asg1Test {
     @Test
     public void testListFiles() {
         System.out.println("listFiles");
-        String path = "E:\\Online Learning\\Sem 5\\STIW3054 Real-Time Programming";
+        String path = System.getProperty("user.dir");
         Asg1.listFiles(path);
-        
     }
 
     /**
      * Test of listIssues method, of class Asg1.
+     * @throws java.lang.Exception
      */
     @Test
     public void testListIssues() throws Exception {
         System.out.println("listIssues");
-        String path = "";
-        Asg1.listIssues(path);
-       
+        Asg1.listIssues();
     }
-
     
 }
